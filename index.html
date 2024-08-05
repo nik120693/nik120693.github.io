@@ -36,7 +36,7 @@
         <div class="language-switcher">
             <label for="language-select">Language:</label>
             <select id="language-select" onchange="changeLanguage()">
-                <option value="it" selected>Italian</option>
+                <option value="it">Italian</option>
                 <option value="en">English</option>
                 <option value="ru">Russian</option>
             </select>
@@ -52,10 +52,10 @@
         </footer>
     </div>
     <script>
-        function changeLanguage() {
-            var lang = document.getElementById("language-select").value;
-            var content = document.getElementById("content");
-            var texts = {
+        // Function to update content based on the selected language
+        function updateContent(language) {
+            const content = document.getElementById("content");
+            const texts = {
                 it: {
                     heading: "Benvenuti alla Rivista di Alessandro",
                     paragraph: "Questo è un testo segnaposto. Sostituiscilo con il tuo contenuto reale."
@@ -69,10 +69,24 @@
                     paragraph: "Это текст-заполнитель. Замените его на ваш реальный контент."
                 }
             };
-            if (texts[lang]) {
-                content.innerHTML = `<h2>${texts[lang].heading}</h2><p>${texts[lang].paragraph}</p>`;
+            if (texts[language]) {
+                content.innerHTML = `<h2>${texts[language].heading}</h2><p>${texts[language].paragraph}</p>`;
             }
         }
+
+        // Function to change language and store preference
+        function changeLanguage() {
+            const lang = document.getElementById("language-select").value;
+            localStorage.setItem('language', lang);
+            updateContent(lang);
+        }
+
+        // On page load, set the language from localStorage and initialize the language switcher
+        window.onload = function() {
+            const savedLanguage = localStorage.getItem('language') || 'it';
+            document.getElementById("language-select").value = savedLanguage;
+            updateContent(savedLanguage);
+        };
     </script>
 </body>
 </html>
