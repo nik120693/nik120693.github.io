@@ -1,11 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Alexander</title>
     <link rel="stylesheet" href="style.css">
     <script defer="defer" src="/static/js/main.31d6cfe0.js"></script>
+    <style>
+        /* Basic styles for the language switcher */
+        .language-switcher {
+            margin: 10px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .language-switcher select {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,12 +29,20 @@
                     <li><a href="#">Politica</a></li>
                     <li><a href="#">Cronaca</a></li>
                     <li><a href="#">Storia</a></li>
-					<li><a href="#">Contatti</a></li>
+                    <li><a href="#">Contatti</a></li>
                 </ul>
             </nav>
         </header>
+        <div class="language-switcher">
+            <label for="language-select">Language:</label>
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="it" selected>Italian</option>
+                <option value="en">English</option>
+                <option value="ru">Russian</option>
+            </select>
+        </div>
         <main>
-            <section>
+            <section id="content">
                 <h2>Welcome to Alexander's Magazine</h2>
                 <p>This is a placeholder text. Replace it with your actual content.</p>
             </section>
@@ -31,5 +51,28 @@
             <p>&copy; 2024 Your Company. All rights reserved.</p>
         </footer>
     </div>
+    <script>
+        function changeLanguage() {
+            var lang = document.getElementById("language-select").value;
+            var content = document.getElementById("content");
+            var texts = {
+                it: {
+                    heading: "Benvenuti alla Rivista di Alessandro",
+                    paragraph: "Questo è un testo segnaposto. Sostituiscilo con il tuo contenuto reale."
+                },
+                en: {
+                    heading: "Welcome to Alexander's Magazine",
+                    paragraph: "This is a placeholder text. Replace it with your actual content."
+                },
+                ru: {
+                    heading: "Добро пожаловать в журнал Александра",
+                    paragraph: "Это текст-заполнитель. Замените его на ваш реальный контент."
+                }
+            };
+            if (texts[lang]) {
+                content.innerHTML = `<h2>${texts[lang].heading}</h2><p>${texts[lang].paragraph}</p>`;
+            }
+        }
+    </script>
 </body>
 </html>
