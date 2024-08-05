@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Alexander</title>
     <link rel="stylesheet" href="style.css">
-    <script defer="defer" src="/static/js/main.31d6cfe0.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
+			<div class="language-switcher">
+				<!-- Language Selection Flags -->
+				<img src="https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg" class="language-button" data-lang="it" alt="Italiano" title="Italiano">
+				<img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" class="language-button" data-lang="en" alt="English" title="English">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg" class="language-button" data-lang="ru" alt="Русский" title="Русский">
+			</div>
             <h1>Your Website</h1>
             <nav>
                 <ul>
@@ -21,19 +26,7 @@
                 </ul>
             </nav>
         </header>
-        <div class="language-switcher">
-            <!-- Google Translate Widget -->
-            <div id="google_translate_element"></div>
-            <script type="text/javascript">
-                function googleTranslateElementInit() {
-                    new google.translate.TranslateElement({
-                        pageLanguage: 'it',  // Default language of your website
-                        autoDisplay: false
-                    }, 'google_translate_element');
-                }
-            </script>
-            <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-        </div>
+        <div id="google_translate_element" hidden="true"></div>
         <main>
             <section>
                 <h2>Welcome to Alexander's Magazine</h2>
@@ -41,8 +34,45 @@
             </section>
         </main>
         <footer>
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
+            <p>&copy; 2024 Your Company. All rights reserved. </p>
+            <p> Powered by Francesco Nicastro </p>
         </footer>
     </div>
+
+    <script type="text/javascript">
+        // Function to initialize Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', // Default language
+                includedLanguages: 'it,en,ru', // Languages included in the dropdown
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Function to set the language using Google Translate
+        function setLanguage(lang) {
+            var translateSelect = document.querySelector('.goog-te-combo');
+            if (translateSelect) {
+                translateSelect.value = lang;
+                translateSelect.dispatchEvent(new Event('change'));
+            }
+        }
+
+        // Event listener for language buttons
+        document.querySelectorAll('.language-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var lang = this.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        // Load Google Translate script with the correct callback
+        window.onload = function() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.head.appendChild(script);
+        };
+    </script>
 </body>
 </html>
