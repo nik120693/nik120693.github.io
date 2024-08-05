@@ -6,18 +6,6 @@
     <title>Alexander</title>
     <link rel="stylesheet" href="style.css">
     <script defer="defer" src="/static/js/main.31d6cfe0.js"></script>
-    <style>
-        /* Basic styles for the language switcher */
-        .language-switcher {
-            margin: 10px;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .language-switcher select {
-            padding: 5px;
-            font-size: 16px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -34,15 +22,20 @@
             </nav>
         </header>
         <div class="language-switcher">
-            <label for="language-select">Language:</label>
-            <select id="language-select" onchange="changeLanguage()">
-                <option value="it">Italian</option>
-                <option value="en">English</option>
-                <option value="ru">Russian</option>
-            </select>
+            <!-- Google Translate Widget -->
+            <div id="google_translate_element"></div>
+            <script type="text/javascript">
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({
+                        pageLanguage: 'it',  // Default language of your website
+                        autoDisplay: false
+                    }, 'google_translate_element');
+                }
+            </script>
+            <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         </div>
         <main>
-            <section id="content">
+            <section>
                 <h2>Welcome to Alexander's Magazine</h2>
                 <p>This is a placeholder text. Replace it with your actual content.</p>
             </section>
@@ -51,42 +44,5 @@
             <p>&copy; 2024 Your Company. All rights reserved.</p>
         </footer>
     </div>
-    <script>
-        // Function to update content based on the selected language
-        function updateContent(language) {
-            const content = document.getElementById("content");
-            const texts = {
-                it: {
-                    heading: "Benvenuti alla Rivista di Alessandro",
-                    paragraph: "Questo è un testo segnaposto. Sostituiscilo con il tuo contenuto reale."
-                },
-                en: {
-                    heading: "Welcome to Alexander's Magazine",
-                    paragraph: "This is a placeholder text. Replace it with your actual content."
-                },
-                ru: {
-                    heading: "Добро пожаловать в журнал Александра",
-                    paragraph: "Это текст-заполнитель. Замените его на ваш реальный контент."
-                }
-            };
-            if (texts[language]) {
-                content.innerHTML = `<h2>${texts[language].heading}</h2><p>${texts[language].paragraph}</p>`;
-            }
-        }
-
-        // Function to change language and store preference
-        function changeLanguage() {
-            const lang = document.getElementById("language-select").value;
-            localStorage.setItem('language', lang);
-            updateContent(lang);
-        }
-
-        // On page load, set the language from localStorage and initialize the language switcher
-        window.onload = function() {
-            const savedLanguage = localStorage.getItem('language') || 'it';
-            document.getElementById("language-select").value = savedLanguage;
-            updateContent(savedLanguage);
-        };
-    </script>
 </body>
 </html>
